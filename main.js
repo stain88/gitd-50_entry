@@ -1,23 +1,23 @@
-var DELAY   = 700,
-    clicks  = 0,
-    timer   = null,
-    muted   = false;
+var DELAY     = 700,
+    clicks    = 0,
+    timer     = null,
+    muted     = false,
+    character = {};
 
 $(function() {
   newGame();
 });
 
 var newGame = function() {
+  $('#optiontext').text("Choose an option");
   $('#singletext').text("Start");
   $('#doubletext').text("Options");
   option(startGame, musicOption);
 }
 
-var startGame = function() {
-  console.log("starting");
-}
-
 var musicOption = function() {
+  if (muted) $('#optiontext').text("Miss the music?");
+  else $('#optiontext').text("Enough music?");
   $('#singletext').text("Toggle Music");
   $('#doubletext').text("Back to Start");
   option(toggleMute, newGame);
@@ -27,6 +27,42 @@ var toggleMute = function() {
   muted = !muted;
   console.log(muted);
   newGame();
+}
+
+var startGame = function() {
+  $('#optiontext').text("Gender?");
+  $('#singletext').text("Male");
+  $('#doubletext').text("Female");
+  option(genderM, genderF);
+}
+
+var genderM = function() {
+  character.gender = "male";
+  firstClass();
+}
+
+var genderF = function() {
+  character.gender = "female";
+  firstClass();
+}
+
+var firstClass = function() {
+  $('#optiontext').text("Class?");
+  $('#singletext').text("Warrior");
+  $('#doubletext').text("Next");
+  option(warriorClass, secondClass);
+}
+
+var secondClass = function() {
+  $('#singletext').text("Rogue");
+  $('#doubletext').text("Next");
+  option(rogueClass, thirdClass);
+}
+
+var thirdClass = function() {
+  $('#singletext').text("Mage");
+  $('#doubletext').text("Next");
+  option(mageClass, firstClass);
 }
 
 var option = function(a, b) {
