@@ -65,20 +65,36 @@ var thirdClass = function() {
   option(mageClass, firstClass);
 }
 
+var warriorClass = function() {
+  character.class = "warrior";
+  startAdventure();
+}
+
+var rogueClass = function() {
+  character.class = "rogue";
+  startAdventure();
+}
+
+var mageClass = function() {
+  character.class = "mage";
+  startAdventure();
+}
+
+var startAdventure = function() {
+  console.log(character);
+}
+
 var option = function(a, b) {
   $('#choicebtn').off();
-  console.log("enter", clicks);
   $('#choicebtn').on("click", function(e) {
     clicks++;
     if (clicks === 1) {
       timer = setTimeout(function() {
-        console.log("single", a, clicks);
         clicks = 0;
         return a();
       }, DELAY);
     } else {
       clearTimeout(timer);
-      console.log("double", b, clicks);
       clicks = 0;
       console.log(clicks);
       return b();
