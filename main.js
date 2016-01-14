@@ -12,7 +12,7 @@ var newGame = function() {
   $('#optiontext').text("Choose an option");
   $('#singletext').text("Start");
   $('#doubletext').text("Options");
-  option(startGame, musicOption);
+  option(charCreation, musicOption);
 }
 
 var musicOption = function() {
@@ -29,7 +29,7 @@ var toggleMute = function() {
   newGame();
 }
 
-var startGame = function() {
+var charCreation = function() {
   $('#optiontext').text("Gender?");
   $('#singletext').text("Male");
   $('#doubletext').text("Female");
@@ -67,21 +67,28 @@ var thirdClass = function() {
 
 var warriorClass = function() {
   character.class = "warrior";
-  startAdventure();
+  confirmClass();
 }
 
 var rogueClass = function() {
   character.class = "rogue";
-  startAdventure();
+  confirmClass();
 }
 
 var mageClass = function() {
   character.class = "mage";
-  startAdventure();
+  confirmClass();
+}
+
+var confirmClass = function() {
+  $('#optiontext').text("You are a " + character.gender + " " + character.class + ".");
+  $('#singletext').text("Confirm");
+  $('#doubletext').text("Pick again");
+  option(startAdventure, charCreation)
 }
 
 var startAdventure = function() {
-  console.log(character);
+  console.log("on an adventure");
 }
 
 var option = function(a, b) {
@@ -96,7 +103,6 @@ var option = function(a, b) {
     } else {
       clearTimeout(timer);
       clicks = 0;
-      console.log(clicks);
       return b();
     }
   })
