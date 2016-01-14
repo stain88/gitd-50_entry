@@ -17,6 +17,15 @@
 	border: 1px solid black;
 }
 
+#choicebtn {
+	box-shadow: 0 9px #999;
+}
+
+#choicebtn:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);  
+}
+
 /*font-family: 'Pacifico', cursive;
 font-family: 'Satisfy', cursive;
 font-family: 'Tangerine', cursive;
