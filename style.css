@@ -1,3 +1,15 @@
+#maintext, #single, #double {
+	font-family: 'Satisfy', cursive;
+}
+
+#optiontext, #choicebtn {
+	font-family: 'Great Vibes', cursive;
+}
+
+#singletext, #doubletext {
+	font-family: 'Tangerine', cursive;
+}
+
 .game_cont {
 	width: 640px;
 	height: 480px;
@@ -5,3 +17,8 @@
 	border: 1px solid black;
 }
 
+/*font-family: 'Pacifico', cursive;
+font-family: 'Satisfy', cursive;
+font-family: 'Tangerine', cursive;
+font-family: 'Great Vibes', cursive;
+*/
