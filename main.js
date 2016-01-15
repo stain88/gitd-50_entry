@@ -96,12 +96,13 @@ var confirmClass = function() {
   $('#optiontext').text("You are a " + character.gender + " " + character.class + ".");
   $('#singletext').text("Confirm");
   $('#doubletext').text("Pick again");
-  console.log(character);
   option(startAdventure, charCreation)
 }
 
 var startAdventure = function() {
-  console.log("on an adventure");
+  $('#maintext').fadeOut(function() {
+    $(this).text("You are at the inn.").fadeIn()
+  });
 }
 
 var option = function(a, b) {
