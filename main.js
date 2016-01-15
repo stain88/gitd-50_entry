@@ -67,16 +67,28 @@ var thirdClass = function() {
 
 var warriorClass = function() {
   character.class = "warrior";
+  character.health = 50;
+  character.str = 10;
+  character.dex = 2;
+  character.int = 4;
   confirmClass();
 }
 
 var rogueClass = function() {
   character.class = "rogue";
+  character.health = 50;
+  character.str = 5;
+  character.dex = 10;
+  character.int = 6;
   confirmClass();
 }
 
 var mageClass = function() {
   character.class = "mage";
+  character.health = 50;
+  character.str = 2;
+  character.dex = 5;
+  character.int = 10;
   confirmClass();
 }
 
@@ -84,6 +96,7 @@ var confirmClass = function() {
   $('#optiontext').text("You are a " + character.gender + " " + character.class + ".");
   $('#singletext').text("Confirm");
   $('#doubletext').text("Pick again");
+  console.log(character);
   option(startAdventure, charCreation)
 }
 
