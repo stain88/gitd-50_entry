@@ -1,10 +1,10 @@
-var DELAY         = 700,
+var DELAY         = 500,
     clicks        = 0,
     timer         = null,
     muted         = false,
     character     = {},
     questsDone    = 0,
-    currentQuest  = [],
+    currentQuest  = {},
     $s,$o,$m,$d;
 
 $(function() {
@@ -65,13 +65,11 @@ var firstClass = function() {
 
 var secondClass = function() {
   changeText($s,"Rogue");
-  changeText($d,"Next");
   option(rogueClass, thirdClass);
 }
 
 var thirdClass = function() {
   changeText($s,"Mage");
-  changeText($d,"Next");
   option(mageClass, firstClass);
 }
 
@@ -126,13 +124,11 @@ var innFirstChoice = function() {
 
 var innSecondChoice = function() {
   changeText($s, "Talk to Innkeeper");
-  changeText($d, "Next");
   option(talkInn, innThirdChoice);
 }
 
 var innThirdChoice = function() {
   changeText($s, "Leave");
-  changeText($d, "Next");
   option(gotoMap, innFirstChoice);
 }
 
@@ -143,7 +139,42 @@ var rest = function() {
 }
 
 var talkInn = function() {
-  changeText($o, "I have nothing for you right now.");
+  console.log(currentQuest);
+  if (currentQuest.type) {
+    changeText($o, "You already have a quest");
+    changeText($s, "Abandon quest");
+    changeText($d, "Leave");
+    option(quitQuest, gotoMap);
+  }
+  else {
+    changeText($o, "Would you like a quest?");
+    changeText($s, "Yes");
+    changeText($d, "No");
+    option(getQuest, gotoInn);
+  }
+}
+
+var getQuest = function() {
+  if (questsDone === 5) {
+    changeText($o, "Looks like you're ready for the final quest.")
+    changeText($s, "Accept");
+    changeText($d, "Refuse");
+    option(finalQuest,gotoInn);
+  } else {
+    var randa = Math.floor(Math.random()*4);
+    var randb = Math.floor(Math.random()*2);
+    var randc = Math.floor(Math.random()*4)+6;
+    currentQuest.enemy = ["goblin", "rat", "wolf", "ogre"][randa];
+    currentQuest.type = ["Kill", "Collect"][randb];
+    console.log(currentQuest);
+    if (currentQuest.type === "Kill") {
+      changeText($o, "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s."));
+    }
+  }
+}
+
+var quitQuest = function() {
+  console.log("quitting quest");
 }
 
 var gotoMap = function() {
@@ -182,7 +213,7 @@ var gotoCave = function() {
 }
 
 var gotoCastle = function() {
-  
+
 }
 
 var option = function(a, b) {
