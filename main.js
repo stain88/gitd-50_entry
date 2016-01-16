@@ -2,24 +2,29 @@ var DELAY     = 700,
     clicks    = 0,
     timer     = null,
     muted     = false,
-    character = {};
+    character = {},
+    $s,$o,$m,$d;
 
 $(function() {
+  $s = $('#singletext');
+  $o = $('#optiontext');
+  $d = $('#doubletext');
+  $m = $('#maintext');
   newGame();
 });
 
 var newGame = function() {
-  changeText($('#optiontext'),"Choose an option");
-  changeText($('#singletext'),"Start");
-  changeText($('#doubletext'),"Options");
+  changeText($o,"Choose an option");
+  changeText($s,"Start");
+  changeText($d,"Options");
   option(charCreation, musicOption);
 }
 
 var musicOption = function() {
-  if (muted) changeText($('#optiontext'),"Miss the music?");
-  else changeText($('#optiontext'),"Enough music?");
-  changeText($('#singletext'),"Toggle Music");
-  changeText($('#doubletext'),"Back to Start");
+  if (muted) changeText($o,"Miss the music?");
+  else changeText($o,"Enough music?");
+  changeText($s,"Toggle Music");
+  changeText($d,"Back to Start");
   option(toggleMute, newGame);
 }
 
@@ -29,9 +34,9 @@ var toggleMute = function() {
 }
 
 var charCreation = function() {
-  changeText($('#optiontext'),"Gender?");
-  changeText($('#singletext'),"Male");
-  changeText($('#doubletext'),"Female");
+  changeText($o,"Gender?");
+  changeText($s,"Male");
+  changeText($d,"Female");
   option(genderM, genderF);
 }
 
@@ -46,25 +51,25 @@ var genderF = function() {
 }
 
 var chooseClass = function() {
-  changeText($('#optiontext'),"Class?");
+  changeText($o,"Class?");
   firstClass();
 }
 
 var firstClass = function() {
-  changeText($('#singletext'),"Warrior");
-  changeText($('#doubletext'),"Next");
+  changeText($s,"Warrior");
+  changeText($d,"Next");
   option(warriorClass, secondClass);
 }
 
 var secondClass = function() {
-  changeText($('#singletext'),"Rogue");
-  changeText($('#doubletext'),"Next");
+  changeText($s,"Rogue");
+  changeText($d,"Next");
   option(rogueClass, thirdClass);
 }
 
 var thirdClass = function() {
-  changeText($('#singletext'),"Mage");
-  changeText($('#doubletext'),"Next");
+  changeText($s,"Mage");
+  changeText($d,"Next");
   option(mageClass, firstClass);
 }
 
@@ -96,15 +101,21 @@ var mageClass = function() {
 }
 
 var confirmClass = function() {
-  changeText($('#optiontext'), "You are a " + character.gender + " " + character.class + ".");
-  changeText($('#singletext'), "Confirm");
-  changeText($('#doubletext'), "Pick again");
-  option(startAdventure, charCreation)
+  changeText($o, "You are a " + character.gender + " " + character.class + ".");
+  changeText($s, "Confirm");
+  changeText($d, "Pick again");
+  option(gotoInn, charCreation)
 }
 
-var startAdventure = function() {
-  changeText($('#maintext'),"You are at the inn.");
-  changeText($('#optiontext'), "What would you like to do?");
+var gotoInn = function() {
+  changeText($m,"You are at the inn.");
+  changeText($o, "What would you like to do?");
+  innFirstChoice();
+}
+
+var innFirstChoice = function() {
+  changeText($s, "Rest");
+  changeText($d, "Next");
 }
 
 var option = function(a, b) {
