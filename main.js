@@ -1,8 +1,10 @@
-var DELAY     = 700,
-    clicks    = 0,
-    timer     = null,
-    muted     = false,
-    character = {},
+var DELAY         = 700,
+    clicks        = 0,
+    timer         = null,
+    muted         = false,
+    character     = {},
+    questsDone    = 0,
+    currentQuest  = null,
     $s,$o,$m,$d;
 
 $(function() {
@@ -76,6 +78,7 @@ var thirdClass = function() {
 var warriorClass = function() {
   character.class = "warrior";
   character.health = 50;
+  character.maxHealth = 50;
   character.str = 10;
   character.dex = 2;
   character.int = 4;
@@ -84,7 +87,8 @@ var warriorClass = function() {
 
 var rogueClass = function() {
   character.class = "rogue";
-  character.health = 50;
+  character.health = 40;
+  character.maxHealth = 40;
   character.str = 5;
   character.dex = 10;
   character.int = 6;
@@ -93,7 +97,8 @@ var rogueClass = function() {
 
 var mageClass = function() {
   character.class = "mage";
-  character.health = 50;
+  character.health = 30;
+  character.maxHealth = 30;
   character.str = 2;
   character.dex = 5;
   character.int = 10;
@@ -116,6 +121,33 @@ var gotoInn = function() {
 var innFirstChoice = function() {
   changeText($s, "Rest");
   changeText($d, "Next");
+  option(rest, innSecondChoice);
+}
+
+var innSecondChoice = function() {
+  changeText($s, "Talk to Innkeeper");
+  changeText($d, "Next");
+  option(talkInn, innThirdChoice);
+}
+
+var innThirdChoice = function() {
+  changeText($s, "Leave");
+  changeText($d, "Next");
+  option(gotoMap, innFirstChoice);
+}
+
+var rest = function() {
+  character.health = character.maxHealth;
+  changeText($o, "You are fully healed.")
+  innSecondChoice();
+}
+
+var talkInn = function() {
+
+}
+
+var gotoMap = function() {
+  changeText($m, "You are looking at the world map.")
 }
 
 var option = function(a, b) {
