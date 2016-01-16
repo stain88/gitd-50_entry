@@ -9,30 +9,29 @@ $(function() {
 });
 
 var newGame = function() {
-  $('#optiontext').text("Choose an option");
-  $('#singletext').text("Start");
-  $('#doubletext').text("Options");
+  changeText($('#optiontext'),"Choose an option");
+  changeText($('#singletext'),"Start");
+  changeText($('#doubletext'),"Options");
   option(charCreation, musicOption);
 }
 
 var musicOption = function() {
-  if (muted) $('#optiontext').text("Miss the music?");
-  else $('#optiontext').text("Enough music?");
-  $('#singletext').text("Toggle Music");
-  $('#doubletext').text("Back to Start");
+  if (muted) changeText($('#optiontext'),"Miss the music?");
+  else changeText($('#optiontext'),"Enough music?");
+  changeText($('#singletext'),"Toggle Music");
+  changeText($('#doubletext'),"Back to Start");
   option(toggleMute, newGame);
 }
 
 var toggleMute = function() {
   muted = !muted;
-  console.log(muted);
   newGame();
 }
 
 var charCreation = function() {
-  $('#optiontext').text("Gender?");
-  $('#singletext').text("Male");
-  $('#doubletext').text("Female");
+  changeText($('#optiontext'),"Gender?");
+  changeText($('#singletext'),"Male");
+  changeText($('#doubletext'),"Female");
   option(genderM, genderF);
 }
 
@@ -47,21 +46,21 @@ var genderF = function() {
 }
 
 var firstClass = function() {
-  $('#optiontext').text("Class?");
-  $('#singletext').text("Warrior");
-  $('#doubletext').text("Next");
+  changeText($('#optiontext'),"Class?");
+  changeText($('#singletext'),"Warrior");
+  changeText($('#doubletext'),"Next");
   option(warriorClass, secondClass);
 }
 
 var secondClass = function() {
-  $('#singletext').text("Rogue");
-  $('#doubletext').text("Next");
+  changeText($('#singletext'),"Rogue");
+  changeText($('#doubletext'),"Next");
   option(rogueClass, thirdClass);
 }
 
 var thirdClass = function() {
-  $('#singletext').text("Mage");
-  $('#doubletext').text("Next");
+  changeText($('#singletext'),"Mage");
+  changeText($('#doubletext'),"Next");
   option(mageClass, firstClass);
 }
 
@@ -93,16 +92,14 @@ var mageClass = function() {
 }
 
 var confirmClass = function() {
-  $('#optiontext').text("You are a " + character.gender + " " + character.class + ".");
-  $('#singletext').text("Confirm");
-  $('#doubletext').text("Pick again");
+  changeText($('#optiontext'), "You are a " + character.gender + " " + character.class + ".");
+  changeText($('#singletext'), "Confirm");
+  changeText($('#doubletext'), "Pick again");
   option(startAdventure, charCreation)
 }
 
 var startAdventure = function() {
-  $('#maintext').fadeOut(function() {
-    $(this).text("You are at the inn.").fadeIn()
-  });
+  changeText($('#maintext'),"You are at the inn.");
 }
 
 var option = function(a, b) {
@@ -124,3 +121,9 @@ var option = function(a, b) {
     e.preventDefault();
   });
 }
+
+var changeText = function(sign, string) {
+  sign.fadeOut(function() {
+    $(this).text(string).fadeIn();
+  });
+};
