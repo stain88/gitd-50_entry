@@ -4,7 +4,7 @@ var DELAY         = 700,
     muted         = false,
     character     = {},
     questsDone    = 0,
-    currentQuest  = null,
+    currentQuest  = [],
     $s,$o,$m,$d;
 
 $(function() {
@@ -138,16 +138,51 @@ var innThirdChoice = function() {
 
 var rest = function() {
   character.health = character.maxHealth;
-  changeText($o, "You are fully healed.")
+  changeText($o, "You are fully healed.");
   innSecondChoice();
 }
 
 var talkInn = function() {
-
+  changeText($o, "I have nothing for you right now.");
 }
 
 var gotoMap = function() {
-  changeText($m, "You are looking at the world map.")
+  changeText($m, "You are looking at the world map.");
+  changeText($o, "Where would you like to go?");
+  mapFirstChoice();
+}
+
+var mapFirstChoice = function() {
+  changeText($s, "Forest");
+  changeText($d, "Next");
+  option(gotoForest, mapSecondChoice);
+}
+
+var mapSecondChoice = function() {
+  changeText($s, "Cave");
+  option(gotoCave, mapThirdChoice);
+}
+
+var mapThirdChoice = function() {
+  changeText($s, "Castle");
+  option(gotoCastle, mapFourthChoice);
+}
+
+var mapFourthChoice = function() {
+  changeText($s, "Inn");
+  option(gotoInn, mapFirstChoice);
+}
+
+var gotoForest = function() {
+
+}
+
+var gotoCave = function() {
+
+}
+
+var gotoCastle = function() {
+  
 }
 
 var option = function(a, b) {
