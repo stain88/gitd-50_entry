@@ -37,16 +37,20 @@ var charCreation = function() {
 
 var genderM = function() {
   character.gender = "male";
-  firstClass();
+  chooseClass();
 }
 
 var genderF = function() {
   character.gender = "female";
+  chooseClass();
+}
+
+var chooseClass = function() {
+  changeText($('#optiontext'),"Class?");
   firstClass();
 }
 
 var firstClass = function() {
-  changeText($('#optiontext'),"Class?");
   changeText($('#singletext'),"Warrior");
   changeText($('#doubletext'),"Next");
   option(warriorClass, secondClass);
@@ -100,6 +104,7 @@ var confirmClass = function() {
 
 var startAdventure = function() {
   changeText($('#maintext'),"You are at the inn.");
+  changeText($('#optiontext'), "What would you like to do?");
 }
 
 var option = function(a, b) {

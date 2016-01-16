@@ -26,6 +26,10 @@
   transform: translateY(4px);  
 }
 
+#choicebtn:focus {
+  outline: none;
+}
+
 /*font-family: 'Pacifico', cursive;
 font-family: 'Satisfy', cursive;
 font-family: 'Tangerine', cursive;
