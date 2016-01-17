@@ -5,6 +5,8 @@ var DELAY         = 500,
     character     = {},
     questsDone    = 0,
     currentQuest  = {},
+    currentMusic  = null,
+    intro_music   = new Audio("Impossible_Spheres.mp3", {"loop": true}),
     $s,$o,$m,$d;
 
 $(function() {
@@ -16,6 +18,7 @@ $(function() {
 });
 
 var newGame = function() {
+  addTrack(intro_music);
   changeText($o,"Choose an option");
   changeText($s,"Start");
   changeText($d,"Options");
@@ -169,12 +172,12 @@ var getQuest = function() {
   } else {
     var randa = Math.floor(Math.random()*4);
     var randb = Math.floor(Math.random()*2);
-    var randc = Math.floor(Math.random()*4)+6;
+    currentQuest.number = Math.floor(Math.random()*4)+6;
     currentQuest.enemy = ["goblin", "rat", "wolf", "ogre"][randa];
     currentQuest.type = ["Kill", "Collect"][randb];
     console.log(currentQuest);
     if (currentQuest.type === "Kill") {
-      currentQuest.info = "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s.");
+      currentQuest.info = "Kill " + currentQuest.number + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s.");
       changeText($o, currentQuest.info);
     } else {
       switch (currentQuest.enemy) {
@@ -191,7 +194,7 @@ var getQuest = function() {
           currentQuest.item = "clubs";
           break;
       }
-      currentQuest.info = "Collect " + randc + " " + currentQuest.enemy + " " + currentQuest.item + ".";
+      currentQuest.info = "Collect " + currentQuest.number + " " + currentQuest.enemy + " " + currentQuest.item + ".";
       changeText($o, currentQuest.info);
     }
     changeText($s, "Accept");
@@ -229,7 +232,9 @@ var checkQuest = function() {
 }
 
 var completeQuest = function() {
-
+  questsDone++;
+  currentQuest = {};
+  talkInn();
 }
 
 var finalQuest = function() {
@@ -304,4 +309,23 @@ var changeText = function(sign, string) {
   sign.fadeOut(function() {
     $(this).text(string).fadeIn();
   });
+};
+
+var addTrack = function(track) {
+  if (currentMusic) currentMusic.pause();
+  if (typeof track.loop == 'boolean')
+  {
+    track.loop = true;
+  }
+  else
+  {
+    track.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+  }
+  if (!muted) {
+    track.play();
+    currentMusic = track;
+  }
 };
