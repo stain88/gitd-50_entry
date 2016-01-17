@@ -35,6 +35,11 @@ var musicOption = function() {
 
 var toggleMute = function() {
   muted = !muted;
+  if (muted) currentMusic.pause();
+  else {
+    currentMusic.currentTime=0;
+    currentMusic.play();
+  }
   newGame();
 }
 
