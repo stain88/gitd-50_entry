@@ -169,6 +169,25 @@ var getQuest = function() {
     console.log(currentQuest);
     if (currentQuest.type === "Kill") {
       changeText($o, "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s."));
+      changeText($s, "Accept");
+      changeText($d, "Another");
+    } else {
+      var item;
+      switch (currentQuest.enemy) {
+        case "goblin":
+          item = "heads";
+          break;
+        case "rat":
+          item = "tails";
+          break;
+        case "wolf":
+          item = "pelts";
+          break;
+        case "ogre":
+          item = "clubs";
+          break;
+      }
+      changeText($o, "Collect " + randc + " " + item + ".");
     }
   }
 }
