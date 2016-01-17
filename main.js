@@ -140,11 +140,17 @@ var rest = function() {
 
 var talkInn = function() {
   console.log(currentQuest);
-  if (currentQuest.type) {
-    changeText($o, "You already have a quest");
-    changeText($s, "Abandon quest");
+  if (currentQuest.status === "doing") {
+    changeText($o, "You already have a quest.");
+    changeText($s, "Check quest");
     changeText($d, "Leave");
-    option(quitQuest, gotoMap);
+    option(checkQuest, gotoMap);
+  }
+  else if (currentQuest.status === "done") {
+    changeText($o, "Complete quest?")
+    changeText($s, "Turn in");
+    changeText($d, "Leave");
+    option(completeQuest, gotoMap);
   }
   else {
     changeText($o, "Would you like a quest?");
@@ -169,26 +175,26 @@ var getQuest = function() {
     console.log(currentQuest);
     if (currentQuest.type === "Kill") {
       changeText($o, "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s."));
-      changeText($s, "Accept");
-      changeText($d, "Another");
     } else {
-      var item;
       switch (currentQuest.enemy) {
         case "goblin":
-          item = "heads";
+          currentQuest.item = "heads";
           break;
         case "rat":
-          item = "tails";
+          currentQuest.item = "tails";
           break;
         case "wolf":
-          item = "pelts";
+          currentQuest.item = "pelts";
           break;
         case "ogre":
-          item = "clubs";
+          currentQuest.item = "clubs";
           break;
       }
-      changeText($o, "Collect " + randc + " " + item + ".");
+      changeText($o, "Collect " + randc + " " + currentQuest.item + ".");
     }
+    changeText($s, "Accept");
+    changeText($d, "Another");
+    option(acceptQuest, getQuest)
   }
 }
 
