@@ -338,11 +338,12 @@ var battleGoblin = function() {
   var drop = Math.random();
   if (drop < 0.75) {
     changeText($o, "You defeated the goblin, and kept its head.")
-    if (character.inv.goblinhead) character.inv.goblinhead++;
-    else character.inv.goblinhead = 1;
-  } else {
-    changeText($o, "You defeated the goblin.");
-  }
+    if (currentQuest.type === "Collect" && currentQuest.enemy === "goblin") updateQuestInfo();
+  } 
+  else changeText($o, "You defeated the goblin.");
+
+  if (currentQuest.type === "Kill" && currentQuest.enemy === "goblin") updateQuestInfo();
+  
   forestFirstChoice();
 }
 
@@ -359,6 +360,14 @@ var gotoCave = function() {
 
 var gotoCastle = function() {
 
+}
+
+var updateQuestInfo = function() {
+  currentQuest.number = Math.max(0, --currentQuest.number);
+  currentQuest.info = currentQuest.info.split(" ");
+  currentQuest.info[1] = currentQuest.number;
+  currentQuest.info = currentQuest.info.join(" ");
+  if (currentQuest.number <= 0) currentQuest.status = "done";
 }
 
 var option = function(a, b) {
