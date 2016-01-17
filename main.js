@@ -343,7 +343,7 @@ var battleGoblin = function() {
   else changeText($o, "You defeated the goblin.");
 
   if (currentQuest.type === "Kill" && currentQuest.enemy === "goblin") updateQuestInfo();
-  
+
   forestFirstChoice();
 }
 
@@ -352,6 +352,19 @@ var encounterWolf = function() {
   changeText($s, "Fight");
   changeText($d, "Run");
   option(battleWolf, gotoForest);
+}
+
+var battleWolf = function() {
+  var drop = Math.random();
+  if (drop < 0.75) {
+    changeText($o, "You defeated the wolf, and kept its pelt.")
+    if (currentQuest.type === "Collect" && currentQuest.enemy === "wolf") updateQuestInfo();
+  } 
+  else changeText($o, "You defeated the wolf.");
+
+  if (currentQuest.type === "Kill" && currentQuest.enemy === "wolf") updateQuestInfo();
+
+  forestFirstChoice();
 }
 
 var gotoCave = function() {
