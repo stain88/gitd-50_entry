@@ -28,6 +28,7 @@ var newGame = function() {
 var musicOption = function() {
   if (muted) changeText($o,"Miss the music?");
   else changeText($o,"Enough music?");
+
   changeText($s,"Toggle Music");
   changeText($d,"Back to Start");
   option(toggleMute, newGame);
@@ -136,6 +137,11 @@ var innSecondChoice = function() {
 }
 
 var innThirdChoice = function() {
+  changeText($s, "Toggle Music");
+  option(toggleMusic, innFourthChoice);
+}
+
+var innFourthChoice = function() {
   changeText($s, "Leave");
   option(gotoMap, innFirstChoice);
 }
@@ -146,6 +152,29 @@ var rest = function() {
   innSecondChoice();
 }
 
+var toggleMusic = function() {
+  if (muted) {
+    changeText($o, "Miss the music?");
+    changeText($s, "Turn on");
+  } else {
+    changeText($o, "Enough music?");
+    changeText($s, "Turn off");
+  }
+  changeText($d, "Back");
+  option(toggleMuteInn, innFirstChoice);
+}
+
+var toggleMuteInn = function() {
+  changeText($o, "What would you like to do?");
+  muted = !muted;
+  if (muted) currentMusic.pause();
+  else {
+    currentMusic.currentTime=0;
+    currentMusic.play();
+  }
+  innFirstChoice();
+}
+
 var talkInn = function() {
   console.log(currentQuest);
   if (currentQuest.status === "doing") {
@@ -153,14 +182,12 @@ var talkInn = function() {
     changeText($s, "Check quest");
     changeText($d, "Leave");
     option(checkQuest, gotoMap);
-  }
-  else if (currentQuest.status === "done") {
+  } else if (currentQuest.status === "done") {
     changeText($o, "Complete quest?")
     changeText($s, "Turn in");
     changeText($d, "Leave");
     option(completeQuest, gotoMap);
-  }
-  else {
+  } else {
     changeText($o, "Would you like a quest?");
     changeText($s, "Yes");
     changeText($d, "No");
@@ -279,6 +306,18 @@ var mapFourthChoice = function() {
 }
 
 var gotoForest = function() {
+  changeText($m, "You are in a forest.");
+  changeText($o, "What would you like to do?");
+  forestFirstChoice();
+}
+
+var forestFirstChoice = function() {
+  changeText($s, "Explore");
+  changeText($d, "Leave")
+  option(exploreForest, gotoMap);
+}
+
+var exploreForest = function() {
 
 }
 
@@ -318,19 +357,16 @@ var changeText = function(sign, string) {
 
 var addTrack = function(track) {
   if (currentMusic) currentMusic.pause();
-  if (typeof track.loop == 'boolean')
-  {
+  if (typeof track.loop == 'boolean') {
     track.loop = true;
-  }
-  else
-  {
+  } else {
     track.addEventListener('ended', function() {
         this.currentTime = 0;
         this.play();
     }, false);
   }
+  currentMusic = track;
   if (!muted) {
     track.play();
-    currentMusic = track;
   }
 };
