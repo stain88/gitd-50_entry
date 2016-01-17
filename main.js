@@ -386,6 +386,46 @@ var exploreCave = function() {
   else encounterOgre();
 }
 
+var encounterRat = function() {
+  changeText($o, "You encounter a rat!");
+  changeText($s, "Fight");
+  changeText($d, "Run");
+  option(battleRat, gotoCave);  
+}
+
+var battleRat = function() {
+  var drop = Math.random();
+  if (drop < 0.75) {
+    changeText($o, "You defeated the rat, and kept its tail.")
+    if (currentQuest.type === "Collect" && currentQuest.enemy === "rat") updateQuestInfo();
+  } 
+  else changeText($o, "You defeated the rat.");
+
+  if (currentQuest.type === "Kill" && currentQuest.enemy === "rat") updateQuestInfo();
+
+  caveFirstChoice();
+}
+
+var encounterOgre = function() {
+  changeText($o, "You encounter a ogre!");
+  changeText($s, "Fight");
+  changeText($d, "Run");
+  option(battleOgre, gotoCave);
+}
+
+var battleOgre = function() {
+  var drop = Math.random();
+  if (drop < 0.75) {
+    changeText($o, "You defeated the ogre, and kept its club.")
+    if (currentQuest.type === "Collect" && currentQuest.enemy === "ogre") updateQuestInfo();
+  } 
+  else changeText($o, "You defeated the ogre.");
+
+  if (currentQuest.type === "Kill" && currentQuest.enemy === "ogre") updateQuestInfo();
+
+  caveFirstChoice();
+}
+
 var gotoCastle = function() {
 
 }
