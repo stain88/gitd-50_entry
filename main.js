@@ -237,7 +237,8 @@ var finalQuest = function() {
 }
 
 var quitQuest = function() {
-  console.log("quitting quest");
+  currentQuest = {};
+  talkInn();
 }
 
 var gotoMap = function() {
