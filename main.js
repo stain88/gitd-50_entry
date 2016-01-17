@@ -89,6 +89,7 @@ var warriorClass = function() {
   character.str = 10;
   character.dex = 2;
   character.int = 4;
+  character.inv = {};
   confirmClass();
 }
 
@@ -99,6 +100,7 @@ var rogueClass = function() {
   character.str = 5;
   character.dex = 10;
   character.int = 6;
+  character.inv = {};
   confirmClass();
 }
 
@@ -109,6 +111,7 @@ var mageClass = function() {
   character.str = 2;
   character.dex = 5;
   character.int = 10;
+  character.inv = {};
   confirmClass();
 }
 
@@ -318,7 +321,36 @@ var forestFirstChoice = function() {
 }
 
 var exploreForest = function() {
+  var rand = Math.random();
+  if (rand < 0.2) changeText($o, "What a peaceful forest.");
+  else if (rand < 0.6) encounterGoblin();
+  else encounterWolf();
+}
 
+var encounterGoblin = function() {
+  changeText($o, "You encounter a goblin!");
+  changeText($s, "Fight");
+  changeText($d, "Run");
+  option(battleGoblin, gotoForest);
+}
+
+var battleGoblin = function() {
+  var drop = Math.random();
+  if (drop < 0.75) {
+    changeText($o, "You defeated the goblin, and kept its head.")
+    if (character.inv.goblinhead) character.inv.goblinhead++;
+    else character.inv.goblinhead = 1;
+  } else {
+    changeText($o, "You defeated the goblin.");
+  }
+  forestFirstChoice();
+}
+
+var encounterWolf = function() {
+  changeText($o, "You encounter a wolf!");
+  changeText($s, "Fight");
+  changeText($d, "Run");
+  option(battleWolf, gotoForest);
 }
 
 var gotoCave = function() {
