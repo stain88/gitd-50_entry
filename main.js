@@ -207,7 +207,7 @@ var getQuest = function() {
   } else {
     var randa = Math.floor(Math.random()*4);
     var randb = Math.floor(Math.random()*2);
-    currentQuest.number = Math.floor(Math.random()*4)+6;
+    currentQuest.number = Math.floor(Math.random()*4)+2;
     currentQuest.enemy = ["goblin", "rat", "wolf", "ogre"][randa];
     currentQuest.type = ["Kill", "Collect"][randb];
     console.log(currentQuest);
@@ -368,7 +368,22 @@ var battleWolf = function() {
 }
 
 var gotoCave = function() {
+  changeText($m, "You are in a cave.");
+  changeText($o, "What would you like to do?");
+  caveFirstChoice();
+}
 
+var caveFirstChoice = function() {
+  changeText($s, "Explore");
+  changeText($d, "Leave")
+  option(exploreCave, gotoMap);
+}
+
+var exploreCave = function() {
+  var rand = Math.random();
+  if (rand < 0.2) changeText($o, "What a dark cave.");
+  else if (rand < 0.6) encounterRat();
+  else encounterOgre();
 }
 
 var gotoCastle = function() {
