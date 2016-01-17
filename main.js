@@ -288,23 +288,23 @@ var gotoMap = function() {
 }
 
 var mapFirstChoice = function() {
-  changeText($s, "Forest");
+  changeText($s, "Inn");
   changeText($d, "Next");
   option(gotoForest, mapSecondChoice);
 }
 
 var mapSecondChoice = function() {
-  changeText($s, "Cave");
+  changeText($s, "Forest");
   option(gotoCave, mapThirdChoice);
 }
 
 var mapThirdChoice = function() {
-  changeText($s, "Castle");
+  changeText($s, "Cave");
   option(gotoCastle, mapFourthChoice);
 }
 
 var mapFourthChoice = function() {
-  changeText($s, "Inn");
+  changeText($s, "Castle");
   option(gotoInn, mapFirstChoice);
 }
 
