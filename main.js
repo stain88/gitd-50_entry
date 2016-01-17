@@ -174,7 +174,8 @@ var getQuest = function() {
     currentQuest.type = ["Kill", "Collect"][randb];
     console.log(currentQuest);
     if (currentQuest.type === "Kill") {
-      changeText($o, "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s."));
+      currentQuest.info = "Kill " + randc + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s.");
+      changeText($o, currentQuest.info);
     } else {
       switch (currentQuest.enemy) {
         case "goblin":
@@ -190,12 +191,49 @@ var getQuest = function() {
           currentQuest.item = "clubs";
           break;
       }
-      changeText($o, "Collect " + randc + " " + currentQuest.item + ".");
+      currentQuest.info = "Collect " + randc + " " + currentQuest.enemy + " " + currentQuest.item + ".";
+      changeText($o, currentQuest.info);
     }
     changeText($s, "Accept");
     changeText($d, "Another");
     option(acceptQuest, getQuest)
   }
+}
+
+var acceptQuest = function() {
+  switch (currentQuest.enemy) {
+    case "goblin":
+      changeText($o, "Goblins can be found in forests.");
+      break;
+    case "rat":
+      changeText($o, "Rats can be found in caves.");
+      break;
+    case "wolf":
+      changeText($o, "Wolves can be found in forests.");
+      break;
+    case "ogre":
+      changeText($o, "Ogres can be found in caves.");
+      break;
+  }
+  currentQuest.status = "doing";
+  changeText($s, "Thanks");
+  changeText($d, "Leave");
+  option(gotoMap, gotoMap);
+}
+
+var checkQuest = function() {
+  changeText($o, currentQuest.info);
+  changeText($s, "Abandon");
+  changeText($d, "Leave");
+  option(quitQuest, gotoMap);
+}
+
+var completeQuest = function() {
+
+}
+
+var finalQuest = function() {
+
 }
 
 var quitQuest = function() {
