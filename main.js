@@ -21,9 +21,11 @@ $(function() {
 
 var newGame = function() {
   addTrack(intro_music);
-  changeText($o,"Choose an option");
-  changeText($s,"Start");
-  changeText($d,"Options");
+  changeText($m, "So you want to go on an Adventure?")
+  changeText($o, "Choose an option");
+  changeText($s, "Start");
+  changeText($d, "Options");
+  $('#choicebtn h3').text("Choose wisely...");
   option(charCreation, musicOption);
 }
 
@@ -496,6 +498,7 @@ var findWarlock = function() {
 
 var battleWarlock = function() {
   $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
+  changeText($o, "You hit the warlock for " + Math.floor(Math.random()*(character.str + character.dex + character.int)) + " damage.");
   option(firstStrike, gotoMap);
 }
 
