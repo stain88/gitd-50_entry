@@ -1,4 +1,4 @@
-var DELAY         = 300,
+var DELAY         = 400,
     clicks        = 0,
     timer         = null,
     muted         = false,
@@ -6,7 +6,8 @@ var DELAY         = 300,
     questsDone    = 0,
     currentQuest  = {},
     currentMusic  = null,
-    intro_music   = new Audio("Impossible_Spheres.mp3", {"loop": true}),
+    intro_music   = new Audio("Impossible_Spheres.mp3"),
+    travel_music  = new Audio("Illegal_Echoes.mp3"),
     $s,$o,$m,$d;
 
 $(function() {
@@ -123,6 +124,7 @@ var confirmClass = function() {
 }
 
 var gotoInn = function() {
+  addTrack(intro_music);
   changeText($m,"You are at the inn.");
   changeText($o, "What would you like to do?");
   innFirstChoice();
@@ -282,6 +284,7 @@ var quitQuest = function() {
 }
 
 var gotoMap = function() {
+  addTrack(travel_music);
   changeText($m, "You are looking at the world map.");
   changeText($o, "Where would you like to go?");
   mapFirstChoice();
@@ -465,6 +468,7 @@ var changeText = function(sign, string) {
 };
 
 var addTrack = function(track) {
+  if (track === currentMusic) return;
   if (currentMusic) currentMusic.pause();
   if (typeof track.loop == 'boolean') {
     track.loop = true;
@@ -476,6 +480,7 @@ var addTrack = function(track) {
   }
   currentMusic = track;
   if (!muted) {
+    track.currentTime = 0;
     track.play();
   }
 };
