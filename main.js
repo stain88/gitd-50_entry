@@ -1,4 +1,4 @@
-var DELAY         = 500,
+var DELAY         = 300,
     clicks        = 0,
     timer         = null,
     muted         = false,
