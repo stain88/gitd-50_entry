@@ -285,6 +285,7 @@ var quitQuest = function() {
 
 var gotoMap = function() {
   addTrack(travel_music);
+  $('#choicebtn').removeClass('btn-danger btn-warning').addClass('btn-primary');
   changeText($m, "You are looking at the world map.");
   changeText($o, "Where would you like to go?");
   mapFirstChoice();
@@ -318,6 +319,7 @@ var gotoForest = function() {
 }
 
 var forestFirstChoice = function() {
+  $('#choicebtn').removeClass('btn-primary btn-danger').addClass('btn-warning');
   changeText($s, "Explore");
   changeText($d, "Leave")
   option(exploreForest, gotoMap);
@@ -331,6 +333,7 @@ var exploreForest = function() {
 }
 
 var encounterGoblin = function() {
+  $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
   changeText($o, "You encounter a goblin!");
   changeText($s, "Fight");
   changeText($d, "Run");
@@ -338,11 +341,14 @@ var encounterGoblin = function() {
 }
 
 var battleGoblin = function() {
-  var drop = Math.random();
-  if (drop < 0.75) {
-    changeText($o, "You defeated the goblin, and kept its head.")
-    if (currentQuest.type === "Collect" && currentQuest.enemy === "goblin") updateQuestInfo();
-  } 
+  if (currentQuest.type === "Collect" && currentQuest.enemy === "goblin") {
+    var drop = Math.random();
+    if (drop < 0.75) {
+      changeText($o, "You defeated the goblin, and kept its head.")
+      updateQuestInfo();
+    }
+    else changeText($o, "You defeated the goblin.");
+  }
   else changeText($o, "You defeated the goblin.");
 
   if (currentQuest.type === "Kill" && currentQuest.enemy === "goblin") updateQuestInfo();
@@ -351,6 +357,7 @@ var battleGoblin = function() {
 }
 
 var encounterWolf = function() {
+  $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
   changeText($o, "You encounter a wolf!");
   changeText($s, "Fight");
   changeText($d, "Run");
@@ -358,10 +365,13 @@ var encounterWolf = function() {
 }
 
 var battleWolf = function() {
-  var drop = Math.random();
-  if (drop < 0.75) {
-    changeText($o, "You defeated the wolf, and kept its pelt.")
-    if (currentQuest.type === "Collect" && currentQuest.enemy === "wolf") updateQuestInfo();
+  if (currentQuest.type === "Collect" && currentQuest.enemy === "wolf") {
+    var drop = Math.random();
+    if (drop < 0.75) {
+      changeText($o, "You defeated the wolf, and kept its pelt.")
+      updateQuestInfo();
+    }
+    else changeText($o, "You defeated the wolf.");
   } 
   else changeText($o, "You defeated the wolf.");
 
@@ -377,6 +387,7 @@ var gotoCave = function() {
 }
 
 var caveFirstChoice = function() {
+  $('#choicebtn').removeClass('btn-primary btn-danger').addClass('btn-warning');
   changeText($s, "Explore");
   changeText($d, "Leave")
   option(exploreCave, gotoMap);
@@ -390,6 +401,7 @@ var exploreCave = function() {
 }
 
 var encounterRat = function() {
+  $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
   changeText($o, "You encounter a rat!");
   changeText($s, "Fight");
   changeText($d, "Run");
@@ -397,11 +409,14 @@ var encounterRat = function() {
 }
 
 var battleRat = function() {
-  var drop = Math.random();
-  if (drop < 0.75) {
-    changeText($o, "You defeated the rat, and kept its tail.")
-    if (currentQuest.type === "Collect" && currentQuest.enemy === "rat") updateQuestInfo();
-  } 
+  if (currentQuest.type === "Collect" && currentQuest.enemy === "rat") {
+    var drop = Math.random();
+    if (drop < 0.75) {
+      changeText($o, "You defeated the rat, and kept its tail.")
+      updateQuestInfo();
+    }
+    else changeText($o, "You defeated the rat.");
+  }
   else changeText($o, "You defeated the rat.");
 
   if (currentQuest.type === "Kill" && currentQuest.enemy === "rat") updateQuestInfo();
@@ -410,6 +425,7 @@ var battleRat = function() {
 }
 
 var encounterOgre = function() {
+  $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
   changeText($o, "You encounter a ogre!");
   changeText($s, "Fight");
   changeText($d, "Run");
@@ -417,11 +433,14 @@ var encounterOgre = function() {
 }
 
 var battleOgre = function() {
-  var drop = Math.random();
-  if (drop < 0.75) {
-    changeText($o, "You defeated the ogre, and kept its club.")
-    if (currentQuest.type === "Collect" && currentQuest.enemy === "ogre") updateQuestInfo();
-  } 
+  if (currentQuest.type === "Collect" && currentQuest.enemy === "ogre") {
+    var drop = Math.random();
+    if (drop < 0.75) {
+      changeText($o, "You defeated the ogre, and kept its club.")
+      updateQuestInfo();
+    } 
+    else changeText($o, "You defeated the ogre.");
+  }
   else changeText($o, "You defeated the ogre.");
 
   if (currentQuest.type === "Kill" && currentQuest.enemy === "ogre") updateQuestInfo();
@@ -430,7 +449,7 @@ var battleOgre = function() {
 }
 
 var gotoCastle = function() {
-
+  $('#choicebtn').removeClass('btn-primary').addClass('btn-warning');
 }
 
 var updateQuestInfo = function() {
