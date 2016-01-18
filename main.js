@@ -88,7 +88,7 @@ var warriorClass = function() {
   character.class = "warrior";
   character.health = 50;
   character.maxHealth = 50;
-  character.str = 10;
+  character.str = 20;
   character.dex = 2;
   character.int = 4;
   character.inv = {};
@@ -475,17 +475,32 @@ var gotoCastle = function() {
 }
 
 var exploreCastle = function() {
-  ++tripCounter;
-  if (tripCounter >= 10) battleWarlock();
-
   var rand = Math.random();
   if (rand < 0.33) changeText($o, "Where could that warlock be?");
   else if (rand < 0.66) changeText($o, "You try this corridor.");
   else changeText($o, "Maybe down this path?");
+
+  option(exploreCastle, gotoMap);
+
+  ++tripCounter;
+  if (tripCounter >= 10) findWarlock();
+}
+
+var findWarlock = function() {
+  tripCounter = 0;
+  changeText($o, "You found the warlock!");
+  changeText($s, "Fight");
+  changeText($d, "Run");
+  option(battleWarlock, gotoMap);
 }
 
 var battleWarlock = function() {
-  
+  $('#choicebtn').removeClass('btn-primary btn-warning').addClass('btn-danger');
+  option(firstStrike, gotoMap);
+}
+
+var firstStrike = function() {
+  changeText($o, "You hit the warlock for " + Math.floor(Math.random()*(character.str + character.dex + character.int))
 }
 
 var updateQuestInfo = function() {
