@@ -599,7 +599,7 @@ var addTrack = function(track) {
   }
   currentMusic = track;
   if (!muted) {
-    track.currentTime = 0;
+    if (track.currentTime !== 0) track.currentTime = 0;
     track.play();
   }
 };
