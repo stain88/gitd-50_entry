@@ -5,6 +5,7 @@ var DELAY         = 400,
     character     = {},
     questsDone    = 0,
     currentQuest  = {},
+    tripCounter   = 0,
     currentMusic  = null,
     intro_music   = new Audio("Impossible_Spheres.mp3"),
     travel_music  = new Audio("Illegal_Echoes.mp3"),
@@ -181,7 +182,6 @@ var toggleMuteInn = function() {
 }
 
 var talkInn = function() {
-  console.log(currentQuest);
   if (currentQuest.status === "doing") {
     changeText($o, "You already have a quest.");
     changeText($s, "Check quest");
@@ -201,7 +201,7 @@ var talkInn = function() {
 }
 
 var getQuest = function() {
-  if (questsDone === 5) {
+  if (questsDone >= 5) {
     changeText($o, "Looks like you're ready for the final quest.")
     changeText($s, "Accept");
     changeText($d, "Refuse");
@@ -212,7 +212,6 @@ var getQuest = function() {
     currentQuest.number = Math.floor(Math.random()*4)+2;
     currentQuest.enemy = ["goblin", "rat", "wolf", "ogre"][randa];
     currentQuest.type = ["Kill", "Collect"][randb];
-    console.log(currentQuest);
     if (currentQuest.type === "Kill") {
       currentQuest.info = "Kill " + currentQuest.number + " " + (currentQuest.enemy === "wolf" ? "wolves." : currentQuest.enemy + "s.");
       changeText($o, currentQuest.info);
@@ -275,7 +274,19 @@ var completeQuest = function() {
 }
 
 var finalQuest = function() {
+  changeText($o, "Please defeat the evil warlock in the castle.");
+  option(acceptFinal, gotoMap);
+}
 
+var acceptFinal = function() {
+  currentQuest.type = "Kill";
+  currentQuest.enemy = "warlock";
+  currentQuest.number = 1;
+  currentQuest.info = "Kill 1 warlock";
+  changeText($o, "Here is the key to open the castle gate.");
+  changeText($s, "Thanks");
+  changeText($d, "Leave");
+  option(gotoMap, gotoMap);
 }
 
 var quitQuest = function() {
@@ -449,7 +460,32 @@ var battleOgre = function() {
 }
 
 var gotoCastle = function() {
-  $('#choicebtn').removeClass('btn-primary').addClass('btn-warning');
+  $('#choicebtn').removeClass('btn-primary btn-danger').addClass('btn-warning');
+  if (currentQuest.enemy !== "warlock") {
+    changeText($o, "The gate is locked, and there is no other way in.");
+    changeText($s, "Ok");
+    changeText($d, "Leave");
+    option(gotoMap, gotoMap);
+  } else {
+    changeText($o, "You unlock the gate.");
+    changeText($s, "Explore");
+    changeText($d, "Leave");
+    option(exploreCastle, gotoMap);
+  }
+}
+
+var exploreCastle = function() {
+  ++tripCounter;
+  if (tripCounter >= 10) battleWarlock();
+
+  var rand = Math.random();
+  if (rand < 0.33) changeText($o, "Where could that warlock be?");
+  else if (rand < 0.66) changeText($o, "You try this corridor.");
+  else changeText($o, "Maybe down this path?");
+}
+
+var battleWarlock = function() {
+  
 }
 
 var updateQuestInfo = function() {
