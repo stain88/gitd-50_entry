@@ -500,7 +500,53 @@ var battleWarlock = function() {
 }
 
 var firstStrike = function() {
-  changeText($o, "You hit the warlock for " + Math.floor(Math.random()*(character.str + character.dex + character.int))
+  changeText($o, "You hit the warlock for " + Math.floor(Math.random()*(character.str + character.dex + character.int)) + " damage.");
+  option(secondStrike, gotoMap);
+}
+
+var secondStrike = function() {
+  changeText($o, "You hit the warlock for " + Math.floor(Math.random()*(character.str + character.dex + character.int)) + " damage.");
+  option(thirdStrike, gotoMap);
+}
+
+var thirdStrike = function() {
+  changeText($o, "You defeated the warlock!");
+  changeText($s, "Huzzah!");
+  changeText($d, "Leave");
+  option(endScene, endScene);
+}
+
+var endScene = function() {
+  $('#choicebtn').removeClass('btn-danger btn-warning').addClass('btn-primary');
+  $('#choicebtn h3').text("Thanks for playing");
+  addTrack(intro_music);
+  changeText($o, "The town thanks you for your efforts.")
+  changeText($s, "View credits");
+  changeText($d, "View credits");
+  option(viewCredits, viewCredits);
+}
+
+var viewCredits = function() {
+  changeText($m, "Created for Game in Ten Days #50");
+  changeText($s, "Next");
+  changeText($d, "Play again");
+  creditMusic();
+}
+
+var creditMusic = function() {
+  changeText($o, "Music from JukeDeck.");
+  option(creditProgrammer, newGame);
+}
+
+var creditProgrammer = function() {
+  changeText($o, "Written by stain88");
+  option(creditOthers, newGame);
+}
+
+var creditOthers = function() {
+  changeText($o, "Remember to check out the other entries, and vote for your favourite!");
+  changeText($s, "Play again");
+  option(newGame, newGame);
 }
 
 var updateQuestInfo = function() {
